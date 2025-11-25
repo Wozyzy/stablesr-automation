@@ -1,67 +1,56 @@
-# StableSR Experiment Workspace
+# StableSR Automation Tools
 
-This directory contains the StableSR repository and related automation/reporting tools.
+This repository contains automation scripts and report generators for StableSR experiments.
 
-## Directory Structure
+## Repository Contents
 
-```
-StableSR/
-├── StableSR/                    # Clean StableSR repository (Git repo)
-├── automation_scripts/          # StableSR automation scripts
-├── report_generators/           # PDF/PPTX report generators
-├── reports/                     # Generated reports
-├── outputs/                     # Test outputs and intermediate results
-└── data/                        # Experiment data and reference images
-    ├── StableSR_resolution_sweep/
-    ├── StableSR_resolution_sweep_noisy/
-    ├── StableSR_seed_sweep/
-    ├── StableSR_seed_sweep_noisy/
-    ├── cat_sweep/
-    ├── Te-gl_0018/              # Reference images (clean)
-    ├── Te-gl_0018_noisy/        # Reference images (noisy)
-    └── 720vs128/
-```
+### 📁 automation_scripts/
+Scripts for running experiments and processing images:
+- **`run_sweep.py`**: Resolution sweep automation
+- **`run_seed_sweep.py`**: Seed comparison automation
+- **`fixed_grain_noise.py`**: (Recommended) Adds noise with fixed grain size across resolutions
+- **`perceptual_noise_final.py`**: Adds noise with power-law scaling
+- **`process_mri_noise.py`**: MRI-specific noise processing
 
-## Quick Start
+### 📁 report_generators/
+Tools for creating visual reports from experiment outputs:
+- **`generate_report.py`**: PDF report generator for resolution sweeps
+- **`generate_seed_report.py`**: PDF report generator for seed sweeps
+- **`generate_report_pptx.py`**: PowerPoint report generator
 
-### Running Experiments
+### 📁 noise/
+Results and documentation from noise generation experiments:
+- Comparison of different noise scaling methods (Fixed Grain vs Linear vs Power-Law)
+- Visual examples of noise consistency across resolutions
 
-```bash
-# Resolution sweep
-cd automation_scripts
-python run_sweep.py
+## Usage
 
-# Seed comparison
-python run_seed_sweep.py
-
-# Consistent noise processing
-python consistent_gaussian_noise.py --input_image ../data/Te-gl_0018/Te-gl_0018_512/Te-gl_0018.png
-```
-
-### Generating Reports
+### 1. Noise Generation (Recommended Method)
+To add consistent "fixed grain" noise to images:
 
 ```bash
-# Generate resolution sweep PDF
-cd report_generators
-python generate_report.py \
-  --input_dir ../data/StableSR_resolution_sweep \
-  --ref_dir ../data/Te-gl_0018 \
-  --output_pdf ../reports/resolution_report.pdf
-
-# Generate seed sweep PDF
-python generate_seed_report.py \
-  --input_dir ../data/StableSR_seed_sweep_noisy \
-  --ref_dir ../data/Te-gl_0018_noisy \
-  --output_pdf ../reports/seed_report.pdf
+python automation_scripts/fixed_grain_noise.py \
+  --input_dir path/to/images \
+  --output_dir output_folder \
+  --sigma 8 \
+  --base_res 128
 ```
 
-## Components
+### 2. Running Sweeps
+```bash
+python automation_scripts/run_sweep.py
+```
 
-- **StableSR**: Original repository, kept clean for Git operations
-- **automation_scripts**: Scripts for running StableSR experiments
-- **report_generators**: Tools for creating visual reports
-- **reports**: All generated PDF and PowerPoint reports
-- **outputs**: Temporary test outputs and intermediate results
-- **data**: Experiment outputs and reference datasets
+### 3. Generating Reports
+```bash
+python report_generators/generate_report.py \
+  --input_dir path/to/sweep_output \
+  --ref_dir path/to/reference_images \
+  --output_pdf report.pdf
+```
 
-See README.md files in each directory for detailed documentation.
+## Note
+This repository does **not** contain:
+- The core StableSR codebase
+- Large datasets or experiment outputs (`data/`)
+- Generated PDF/PPTX reports (`reports/`)
