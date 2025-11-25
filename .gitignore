@@ -1,0 +1,37 @@
+# Ignore StableSR repository
+StableSR/
+
+# Ignore data directory (experiment outputs and large datasets)
+data/
+
+# Ignore reports and outputs
+reports/
+outputs/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.log
