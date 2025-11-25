@@ -11,8 +11,12 @@ This directory contains automation scripts for running StableSR experiments.
 - **`run_cat_sweep.py`**: Parameter sweep on a single image to optimize StableSR settings (ddpm_steps, dec_w, colorfix_type)
 
 ### Noise Processing
-- **`simple_gaussian_noise.py`**: Adds Gaussian noise to images at multiple resolutions with manual std_dev control
-- **`consistent_gaussian_noise.py`**: Adds noise at 512x512 then downscales for visual consistency across resolutions
+- **`fixed_grain_noise.py`**: (Recommended) Adds noise with fixed grain size using Nearest Neighbor upscaling
+- **`math_noise_test.py`**: Adds noise using pure matrix repetition (mathematically identical to fixed grain)
+- **`perceptual_noise_final.py`**: Adds noise with power-law scaling
+- **`linear_noise_test.py`**: Adds noise with linear scaling
+- **`simple_gaussian_noise.py`**: Basic Gaussian noise addition
+- **`consistent_gaussian_noise.py`**: Early prototype for consistent noise
 - **`process_mri_noise.py`**: MRI-specific noise processing with multiple noise types (Rician, Gaussian, etc.)
 
 ## Usage Examples
